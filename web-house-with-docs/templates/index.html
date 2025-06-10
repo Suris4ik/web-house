@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Добро пожаловать!</h2>
+{% if current_user.is_authenticated %}
+<div>
+    <a href="/logout" class="btn btn-warning">
+        {{ current_user.login }}
+    </a>
+</div>
+{% else %}
+<h3>
+    Guest
+</h3>
+<div class="text-center">
+    <div class="d-inline-block">
+        <a href="/login" class="btn btn-warning mx-2">
+            Войти
+        </a>
+        <a href="/register" class="btn btn-warning mx-2">
+            Зарегистрироваться
+        </a>
+    </div>
+</div>
+{% endif %}
+{% if current_user.is_admin%}
+<a href="/users" class="btn btn-warning">
+    Пользователи
+</a>
+{%endif%}
+
+<a href="/categories" class="btn btn-warning">
+    Категории
+</a>
+{% if current_user.is_authenticated%}
+<a href="/add/post" class="btn btn-warning">
+    Добавить пост
+</a>
+{%endif%}
+<div>
+    <table>
+        <thead>
+            <tr>
+                <td>ID поста</td>
+                <td>Пользователь</td>
+                <td>Пост</td>
+                <td>Категории</td>
+                {% if current_user.is_admin or current_user.posts %}
+                <td>Удалить</td>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+        <tr>
+            <td>
+                {{post.id}}
+            </td>
+            <td>
+                {{post.user}}
+            </td>
+            <td>
+                {{post.body}}
+            </td>
+            <td>
+                {{post.categories}}
+            </td>
+            {%if current_user.is_admin or current_user.id == post.user_id %}
+            <td>
+                <a href="/delete/posts/{{post.id}}" class="btn btn-warning">
+                    Удалить
+                </a>
+            </td>
+            {%endif%}
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

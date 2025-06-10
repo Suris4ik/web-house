@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if current_user.is_authenticated %}
+<div>
+    <a href="/logout" class="btn btn-warning">
+        {{ current_user.login }}
+    </a>
+</div>
+{% endif %}
+<div>
+    <h2>Категории</h2>
+</div>
+<div>
+    <a href="/" class="btn btn-warning">
+        Вернуться
+    </a>
+</div>
+{% if current_user.is_authenticated %}
+<div>
+    <table>
+        <thead>
+        <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>подробнее</td>
+            {%if current_user.is_admin%}
+            <td>edit</td>
+            <td>delete</td>
+            {%endif%}
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+        <tr>
+            <td>
+                {{category.id}}
+            </td>
+            <td>
+                {{category.name}}
+            </td>
+            <td>
+                <a href="/categories/d/{{category.id}}" class="btn btn-warning">
+                    Подробнее
+                </a>
+            </td>
+            {% if current_user.is_admin %}
+            <td>
+                <a href="/categories/{{category.id}}" class="btn btn-warning">
+                    Редактировать
+                </a>
+            </td>
+            <td>
+                <a href="/delete/categories/{{category.id}}" class="btn btn-warning">
+                    Удалить
+                </a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {%if current_user.is_admin %}
+    <a href="/add/category" class="btn btn-warning">
+        Добавить категорию
+    </a>
+    {%endif%}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+from requests import get, post, put, delete
+
+print('get users')
+print(get('http://localhost:8080/api/v1/users').json())
+print('add user')
+print(post('http://localhost:8080/api/v1/users', json={'email': 'mail@mai123l.mail', 'login': 'user1', 'password': '123', 'is_admin': False}).json())
+print('get 1 user')
+print(get('http://localhost:8080/api/v1/users/3').json())
+print('update user')
+print(put('http://localhost:8080/api/v1/users/3', json={'email': 'mail@mai123l.mail', 'login': 'user1', 'password': '123', 'is_admin': True}).json())
+print('updated user')
+print(get('http://localhost:8080/api/v1/users/3').json())
+print('delete user')
+print(delete('http://localhost:8080/api/v1/users/3').json())
+print('all users')
+print(get('http://localhost:8080/api/v1/users').json())

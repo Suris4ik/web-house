@@ -1,0 +1,385 @@
+/* Основные стили с плавными переходами и переменными */
+:root {
+  --primary-color: #d10000;
+  --primary-dark: #a80000;
+  --text-color: white;
+  --shadow-color: rgba(0, 0, 0, 0.8);
+  --glass-bg: rgba(255, 255, 255, 0.15);
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.7;
+  color: var(--text-color);
+  text-shadow:
+    0.05em 0.05em 0 var(--shadow-color),
+    -0.05em -0.05em 0 var(--shadow-color),
+    0.1em 0 0 var(--shadow-color),
+    0 0.1em 0 var(--shadow-color);
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('../images.jpg') no-repeat center center/cover fixed;
+  margin: 0;
+  min-height: 100vh;
+  transition: all 0.5s ease;
+}
+
+/* Контейнер с неоновым эффектом */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Заголовки с белым текстом и акцентными элементами */
+h1, h2, h3, h4, h5, h6 {
+  color: white; /* Белый цвет вместо градиента */
+  font-weight: 800;
+  margin-top: 0;
+  text-shadow:
+    0 2px 4px var(--shadow-color),
+    0 0 8px rgba(209, 0, 0, 0.6); /* Добавляем красное свечение */
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Добавляем градиентный эффект только к декоративным элементам */
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), transparent);
+}
+
+/* Опционально: класс для градиентного текста, если нужно */
+.gradient-text {
+  background: linear-gradient(45deg, var(--primary-color), #ff4d4d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Интерактивные ссылки */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+}
+
+a:hover {
+  color: var(--text-color);
+}
+
+a::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--text-color);
+  transition: width 0.3s ease;
+}
+
+a:hover::before {
+  width: 100%;
+}
+
+/* Кнопки с 3D-эффектом */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(209, 0, 0, 0.3);
+}
+
+.btn-warning {
+  background: var(--primary-color);
+  color: white;
+}
+
+.btn-warning:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(209, 0, 0, 0.4);
+}
+
+.btn-warning:active {
+  transform: translateY(-1px);
+}
+
+.btn-warning::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent 10%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 90%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-warning:hover::after {
+  transform: translateX(100%);
+}
+
+/* Улучшенные таблицы */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 2rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+th, td {
+  padding: 1rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(221, 221, 221, 0.3);
+}
+
+th {
+  background: linear-gradient(45deg, var(--primary-dark), var(--primary-color));
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: sticky;
+  top: 0;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+tr:hover {
+  background-color: rgba(209, 0, 0, 0.1);
+  transform: scale(1.01);
+  transition: all 0.2s ease;
+}
+
+/* Стильный разделитель */
+hr {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(
+    to right,
+    rgba(209, 0, 0, 0),
+    rgba(209, 0, 0, 0.75),
+    rgba(209, 0, 0, 0)
+  );
+  margin: 2rem 0;
+  position: relative;
+}
+
+hr::after {
+  content: '✻';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: inherit;
+  padding: 0 1rem;
+  color: var(--primary-color);
+}
+
+/* Стеклянный эффект с анимацией */
+.glass-effect {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 0 16px rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  margin: 2rem 0;
+  transition: all 0.5s ease;
+}
+
+.glass-effect:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+/* Форма с плавными эффектами */
+.registration-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 16px;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    inset 0 0 10px rgba(209, 0, 0, 0.3);
+  border: 1px solid rgba(209, 0, 0, 0.2);
+  transition: all 0.5s ease;
+}
+
+.registration-form:hover {
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.6),
+    inset 0 0 15px rgba(209, 0, 0, 0.4);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-shadow: 0 0 5px rgba(209, 0, 0, 0.5);
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 1rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow:
+    0 0 10px rgba(209, 0, 0, 0.5),
+    inset 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* Адаптивность с современными единицами */
+@media (max-width: 768px) {
+  .container {
+    width: 94%;
+    padding: 1.5rem;
+  }
+
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .glass-effect {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  .registration-form {
+    padding: 1.5rem;
+  }
+}
+
+/* Параллакс эффект для секций */
+.parallax-section {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  padding: 5rem 0;
+}
+
+/* Плавное появление элементов */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Эффект набора текста */
+.typewriter {
+  overflow: hidden;
+  border-right: 3px solid var(--primary-color);
+  white-space: nowrap;
+  animation:
+    typing 3.5s steps(40, end),
+    blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--primary-color) }
+}
